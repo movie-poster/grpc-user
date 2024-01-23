@@ -2,9 +2,10 @@ package config
 
 import (
 	"flag"
-	"template-grpc/cmd/handler"
-	repository "template-grpc/internal/domain/repository/implement/user"
-	pb "template-grpc/internal/infra/proto"
+	handler_user "grpc-user/cmd/handler/user"
+	repository_user "grpc-user/internal/domain/repository/implement/user"
+	"grpc-user/internal/domain/usecase"
+	"grpc-user/internal/infra/proto/user"
 
 	"google.golang.org/grpc"
 )
@@ -29,7 +30,11 @@ func Run(s *grpc.Server, configPath string) *grpc.Server {
 
 	conf := GetConfig()
 	setupDB(conf)
-	pb.RegisterUserCrudServer(s, handler.NewServerUser(repository.NewRepository()))
+	setupBrevoClient(conf)
+
+	brevoService := usecase.BrevoService(GetBrevoClient())
+
+	user.RegisterUserCrudServer(s, handler_user.NewServerUser(repository_user.UserRepository(DB, brevoService)))
 	return s
 
 }

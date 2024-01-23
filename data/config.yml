@@ -10,7 +10,10 @@ database:
   max_idle_conns: 50
 
 server:
-  port: "3001"
+  port: "3003"
   secret: "jdnfksdmfksda"
   #release | debug
   mode: "release"
+
+brevo:
+  apiKey: "xsmtpsib-11e50f01687844cb6da64c977bb71b926371f9ef1f30048e532db3b13af9ce92-GB8SKdVbZXMHEUwj"

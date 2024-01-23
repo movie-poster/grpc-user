@@ -2,7 +2,7 @@ package config
 
 import (
 	"fmt"
-	"template-grpc/internal/domain/entity"
+	"grpc-user/internal/domain/entity"
 	"time"
 
 	"gorm.io/driver/mysql"
@@ -66,7 +66,7 @@ func setupDB(configuration *Configuration) {
 // Auto migrate project models
 func migration() {
 	DB.AutoMigrate(&entity.User{})
-
+	DB.AutoMigrate(&entity.RecoverPassword{})
 }
 
 func GetDB() *gorm.DB {

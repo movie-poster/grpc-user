@@ -11,6 +11,7 @@ var Config *Configuration
 type Configuration struct {
 	Server   ServerConfiguration
 	Database DatabaseConfiguration
+	Brevo    BrevoConfiguration
 }
 
 type DatabaseConfiguration struct {
@@ -29,6 +30,10 @@ type ServerConfiguration struct {
 	Port   string
 	Secret string
 	Mode   string
+}
+
+type BrevoConfiguration struct {
+	ApiKey string
 }
 
 // SetupDB initialize configuration

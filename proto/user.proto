@@ -1,33 +1,60 @@
 syntax = "proto3";
 
 package api.v1;
-option go_package = "template-grpc/objectvalues";
+
+option go_package = "grpc-user/internal/infra/proto/user";
 
 message User {
-    string name = 1;
-    string document = 2;
-    string phone = 3;
+    uint64 id = 1;
+	string name = 2;
+    string surname = 3;
+	string email = 4;
+	string nick_name = 5;
+	bool is_admin = 6;
+	bool state = 7;
+    string password = 8;
+    string created_at = 9;
+    string updated_at = 10;
 }
 
-message Users {
-    repeated User users = 1;
+message RequestByIdUser {
+    uint64 id = 1;
 }
 
-
-message ListRequest {
-    int32 offset = 1;
+message LoginUser {
+    string nick_name = 3;
+    string password = 4;
 }
 
-message Response {
-    int32 id = 1;
-    bool is_ok = 2;
-    string message =3;
+message ResetPasswordRequest {
+    string token = 1;
+    string nickname = 2;
 }
 
+message CheckTokenRequest {
+    string token = 1;
+}
+
+message ChangePasswordRequest {
+    string token = 1;
+    string password = 2;
+    string nick_name = 3;
+}
+
+message ResponseUser {
+    string title = 1;
+    string message = 2;
+    bool is_ok = 3;
+    int32 status = 4;
+    User user = 5;
+}
 
 service UserCrud {
-    rpc Insert(User) returns (Response) {}
-    rpc Update(User) returns (Response) {}
-    rpc List(ListRequest) returns (Users) {}
-    rpc Delete(User) returns (Response) {}
+    rpc Insert(User) returns (ResponseUser) {}
+    rpc Update(User) returns (ResponseUser) {}
+    rpc Delete(RequestByIdUser) returns (ResponseUser) {}
+    rpc Login(LoginUser) returns (User) {}
+    rpc ResetPassword(ResetPasswordRequest) returns (ResponseUser){}
+    rpc CheckToken(CheckTokenRequest) returns (ResponseUser){}
+    rpc ChangePassword(ChangePasswordRequest) returns (ResponseUser){}
 }
