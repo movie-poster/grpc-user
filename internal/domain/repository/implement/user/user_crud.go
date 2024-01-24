@@ -134,7 +134,7 @@ func (u *crud) VerifyUser(nickname string) *objectvalue.ResponseValue {
 	result := u.DB.Where("nick_name", nickname).First(&user)
 	if err := result.Error; err != nil {
 		message := utils.CheckErrorFromDB(err)
-		utils.LogError("Error al buscar por ID", message, "GetById", http.StatusBadRequest, nickname)
+		utils.LogError("Error al buscar por ID", message, "VerifyUser", http.StatusBadRequest, nickname)
 		return &objectvalue.ResponseValue{
 			Title:   "Proceso no existoso",
 			IsOk:    false,
@@ -143,7 +143,7 @@ func (u *crud) VerifyUser(nickname string) *objectvalue.ResponseValue {
 			Value:   &pb.User{},
 		}
 	}
-	utils.LogSuccess("Registro encontrado", "GetById", nickname)
+	utils.LogSuccess("Registro encontrado", "VerifyUser", nickname)
 	return &objectvalue.ResponseValue{
 		Title:   "¡Proceso exitoso!",
 		IsOk:    true,

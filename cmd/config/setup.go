@@ -6,6 +6,7 @@ import (
 	repository_user "grpc-user/internal/domain/repository/implement/user"
 	"grpc-user/internal/domain/usecase"
 	"grpc-user/internal/infra/proto/user"
+	"grpc-user/internal/utils"
 
 	"google.golang.org/grpc"
 )
@@ -27,7 +28,7 @@ func setConfiguration(configPath string) {
 }
 
 func Run(s *grpc.Server, configPath string) *grpc.Server {
-
+	utils.SetupLoggerZap()
 	conf := GetConfig()
 	setupDB(conf)
 	setupBrevoClient(conf)

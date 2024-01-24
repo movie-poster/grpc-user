@@ -1,6 +1,6 @@
 database:
   driver: "mysql"
-  dbname: "usuario"
+  dbname: "grpc-user"
   username: "root"
   password: ""
   host: "localhost"
